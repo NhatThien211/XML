@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/D:/XML/Work/HomeSuggestion/web/WEB-INF/schema/bds.xsd" uri="src/conf/xml-resources/jaxb/Houses/bds.xsd"/>
+    <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
+    <system systemId="file:/D:/XML/Work/HomeSuggestion/web/WEB-INF/schema/ListHouse.xsd" uri="src/conf/xml-resources/jaxb/Houses/ListHouse.xsd"/>
+</catalog>

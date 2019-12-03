@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="thien.xsd"
+           targetNamespace="thien.xsd"
+           elementFormDefault="qualified">
+    <xs:element name="houses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="house" type="House" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="House">
+        <xs:all>
+            <xs:element name="image" type="xs:string"/>
+            <xs:element name="url" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="phone" type="Phone"/>
+            <xs:element name="area" type="Double"/>
+            <xs:element name="electricPrice" type="Double"/>
+            <xs:element name="waterPrice" type="Double"/>
+            <xs:element name="rentPrice" type="Double"/>
+            <xs:element name="latitude" type="xs:decimal"/>
+            <xs:element name="longitude" type="xs:decimal"/>
+        </xs:all>
+    </xs:complexType>
+    
+    <xs:simpleType name="Phone">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="0[1-9]{1}[0-9]{8,9}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="Double">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{1,}(.[0-9]{1,2})?"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
