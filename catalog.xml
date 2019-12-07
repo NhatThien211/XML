@@ -3,4 +3,5 @@
     <system systemId="file:/D:/XML/Work/HomeSuggestion/web/WEB-INF/schema/bds.xsd" uri="src/conf/xml-resources/jaxb/Houses/bds.xsd"/>
     <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
     <system systemId="file:/D:/XML/Work/HomeSuggestion/web/WEB-INF/schema/ListHouse.xsd" uri="src/conf/xml-resources/jaxb/Houses/ListHouse.xsd"/>
+    <system systemId="file:/D:/XML/Work/HomeSuggestion/web/WEB-INF/schema/school.xsd" uri="src/conf/xml-resources/jaxb/School/school.xsd"/>
 </catalog>

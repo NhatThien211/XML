@@ -6,7 +6,6 @@
 package thienVN.Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +42,7 @@ public class SearchServlet extends HttpServlet {
             ArrayList<HouseDTO> listHouse = dao.searchHome(searchValue);
             request.setAttribute("LIST", listHouse);
             request.setAttribute("SEARCH_VALUE", searchValue);
+            request.setAttribute("IS_SEARCH", "TRUE");
         } catch (Exception e) {
             log(e.getMessage());
         } finally {

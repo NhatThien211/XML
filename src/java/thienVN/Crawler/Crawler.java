@@ -11,10 +11,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.util.JAXBSource;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -28,12 +31,14 @@ import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 import thienVN.Common.Constraint;
 import thienVN.DAO.HomeDAO;
+import thienVN.DAO.SchoolDAO;
 import thienVN.JaxB.JaxBHouseValidationHandler;
 import thienVN.Utils.CrawlHelper;
 import thienVN.Utils.UtimateURIResolver;
 import thienVN.parser.StAXParser;
 import xsd.thien.House;
 import xsd.thien.Houses;
+import xsd.thien.Schools;
 
 /**
  *
@@ -139,7 +144,7 @@ public class Crawler {
         JAXBSource source = new JAXBSource(context, houses);
 
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = factory.newSchema(new File(realPath + "WEB-INF/schema/ListHouse.xsd"));
+        Schema schema = factory.newSchema(new File(realPath + Constraint.HOUSE_SCHEMA));
 
         Validator validator = schema.newValidator();
         JaxBHouseValidationHandler handler = new JaxBHouseValidationHandler();
@@ -193,11 +198,64 @@ public class Crawler {
                 boolean check = dao.isHomeExisted(dto);
                 if (!check) {
                     dao.insertHouse(dto);
+                } else {
+                    dao.updateHouse(dto);
                 }
             } catch (Exception e) {
                 System.out.println("insert fail: " + dto.toString());
             }
         }
         System.out.println("finished INSERT ======================================================");
+    }
+
+    public void getSchool(String realPath) {
+        FileInputStream inpputFile = null;
+        try {
+            XMLInputFactory xif = XMLInputFactory.newInstance();
+            File file = new File(realPath + Constraint.BDS_XML_OUTPUT);
+            inpputFile = new FileInputStream(file);
+            XMLStreamReader reader = xif.createXMLStreamReader(inpputFile);
+            StAXParser parser = new StAXParser();
+            Schools schools = parser.crawlSchool(reader);
+            validateSchool(schools, realPath);
+            insertSchool(schools);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (inpputFile != null) {
+                try {
+                    inpputFile.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Crawler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    private void validateSchool(Schools schools, String realPath) throws JAXBException, SAXException, IOException {
+        JAXBContext context = JAXBContext.newInstance(Schools.class);
+        JAXBSource source = new JAXBSource(context, schools);
+
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(new File(realPath + Constraint.SCHOOL_SCHEMA));
+
+        Validator validator = schema.newValidator();
+        JaxBHouseValidationHandler handler = new JaxBHouseValidationHandler();
+        validator.setErrorHandler(handler);
+        validator.validate(source);
+    }
+
+    private void insertSchool(Schools schools) {
+        SchoolDAO dao = new SchoolDAO();
+        for (String schoolName : schools.getSchool()) {
+            try {
+                boolean check = dao.isSchoolExisted(schoolName);
+                if (!check) {
+                    dao.insertSchool(schoolName);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

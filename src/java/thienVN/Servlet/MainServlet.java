@@ -6,7 +6,6 @@
 package thienVN.Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +21,11 @@ public class MainServlet extends HttpServlet {
 
     private final String SEARCH = "SearchServlet";
     private final String CRAWL = "CrawlServlet";
+    private final String DETAIL = "DetailServlet";
+    private final String FIND_HOME = "FindHomeServlet";
+    private final String LOGIN = "LoginServlet";
+    private final String CRAWL_SCHOOL = "CrawlSchoolServlet";
+    private final String PRINT_PDF = "PrintPDFServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +48,21 @@ public class MainServlet extends HttpServlet {
                     break;
                 case "crawl":
                     url = CRAWL;
+                    break;
+                case "detail":
+                    url = DETAIL;
+                    break;
+                case "find":
+                    url = FIND_HOME;
+                    break;
+                case "login":
+                    url = LOGIN;
+                    break;
+                case "crawlSchool":
+                    url = CRAWL_SCHOOL;
+                    break;
+                case "printPDF":
+                    url = PRINT_PDF;
                     break;
             }
         } finally {

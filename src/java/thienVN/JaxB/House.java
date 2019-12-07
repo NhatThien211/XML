@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -47,6 +48,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "House", propOrder = {})
+@XmlRootElement(name = "house")
 public class House {
 
     @XmlElement(required = true)
@@ -71,6 +73,10 @@ public class House {
     protected BigDecimal latitude;
     @XmlElement(required = true)
     protected BigDecimal longitude;
+    @XmlElement(required = true)
+    protected BigDecimal distance;
+    @XmlElement(required = true)
+    protected BigDecimal point;
     private int id;
 
     public House() {
@@ -319,4 +325,21 @@ public class House {
         this.longitude = value;
     }
 
+    public BigDecimal getDistance() {
+        return distance;
+    }
+
+    public void setDistance(BigDecimal distance) {
+        this.distance = distance;
+    }
+
+    public BigDecimal getPoint() {
+        return point;
+    }
+
+    public void setPoint(BigDecimal point) {
+        this.point = point;
+    }
+    
+    
 }

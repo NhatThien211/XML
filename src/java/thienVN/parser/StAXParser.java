@@ -23,8 +23,10 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import thienVN.Common.Constraint;
+
 import thienVN.Utils.TextUtils;
 import xsd.thien.House;
+import xsd.thien.Schools;
 
 /**
  *
@@ -71,6 +73,26 @@ public class StAXParser {
                 textContent = textContent.replace("", "hello");
             }
             textContent = TextUtils.refineHtml(textContent);
+            InputStream htmlResult = new ByteArrayInputStream(textContent.getBytes("UTF-8"));
+            return htmlResult;
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(StAXParser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StAXParser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public InputStream getStreamFromUriStateMachineUTF8(String uri) {
+        URLConnection connection = null;
+        try {
+            URL url = new URL(uri);
+            connection = url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla 5.0 (Window; U; Windows NT 5.1; en-US; rv:1.8.0.11) ");
+            InputStream inputStream = connection.getInputStream();
+            String textContent = getString(inputStream);
+            textContent = TextUtils.refineHtml(textContent);
+            textContent = TextUtils.convertEntities(textContent);
             InputStream htmlResult = new ByteArrayInputStream(textContent.getBytes("UTF-8"));
             return htmlResult;
         } catch (MalformedURLException ex) {
@@ -278,7 +300,7 @@ public class StAXParser {
                                     reader.nextTag();
                                     reader.next();
                                     rentingPrice = reader.getText();
-                                    rentingPrice = getNumberFromString(rentingPrice);
+                                    //  rentingPrice = getNumberFromString(rentingPrice);
                                     isFoundRentPrice = true;
                                     house.setRentPrice(rentingPrice);
                                 }
@@ -295,7 +317,7 @@ public class StAXParser {
                                         reader.nextTag();
                                         reader.next();
                                         area = reader.getText();
-                                        area = getNumberFromString(area);
+                                        //       area = getNumberFromString(area);
                                         isFoundArea = true;
                                         house.setArea(area);
                                     }
@@ -315,7 +337,7 @@ public class StAXParser {
                                         reader.nextTag();
                                         reader.next();
                                         electricPrice = reader.getText();
-                                        electricPrice = getNumberFromString(electricPrice);
+                                        //    electricPrice = getNumberFromString(electricPrice);
                                         isFoundElectricPrice = true;
                                         house.setElectricPrice(electricPrice);
                                     }
@@ -335,7 +357,7 @@ public class StAXParser {
                                         reader.nextTag();
                                         reader.next();
                                         water = reader.getText();
-                                        water = getNumberFromString(water);
+                                        //         water = getNumberFromString(water);
                                         isFoundWaterPrice = true;
                                         house.setWaterPrice(water);
                                     }
@@ -422,18 +444,20 @@ public class StAXParser {
         return Integer.parseInt(page);
     }
 
-    private String getNumberFromString(String input) {
-        String output = "";
-        String rex = "[0-9]{1,}";
-        for (int i = 0; i < input.length(); i++) {
-            String tmp = input.substring(0, i);
-            if (tmp.matches(rex)) {
-                output = tmp;
-            }
-        }
-        return output;
-    }
-
+//    private String getNumberFromString(String input) {
+//        String output = "";
+//        String rex = "[0-9]{1,}";
+//        String rex2 = ".";
+//        for (int i = 0; i < input.length(); i++) {
+//            String tmp = input.substring(0, i);
+//            if (tmp.matches(rex) || tmp.matches(rex2)) {
+//                output = tmp;
+//            }else{
+//                return output;
+//            }
+//        }
+//        return output;
+//    }
     public ArrayList<String> getPhongTro123ListLink(XMLStreamReader reader) {
         ArrayList<String> listLink = new ArrayList<>();
         try {
@@ -521,8 +545,8 @@ public class StAXParser {
                         findAreaSign = false;
                         findArea = true;
                         String temp = reader.getElementText();
-                        String area = getNumberFromString(temp);
-                        house.setArea(area);
+                        //            String area = getNumberFromString(temp);
+                        house.setArea(temp);
                     }
                     if (!findRentingPrice && findArea && !findRentingPriceSign) {
                         try {
@@ -538,7 +562,7 @@ public class StAXParser {
                         findRentingPriceSign = false;
                         findRentingPrice = true;
                         String temp = reader.getElementText();
-                        temp = getNumberFromString(temp);
+                        //         temp = getNumberFromString(temp);
                         house.setRentPrice(temp);
                     }
                     if ("img".equals(tagName) && !findImg) {
@@ -571,5 +595,25 @@ public class StAXParser {
             System.out.println("====" + i);
         }
         return house;
+    }
+
+    public Schools crawlSchool(XMLStreamReader reader) {
+        Schools schools = new Schools();
+        try {
+            while (reader.hasNext()) {
+                int cursor = reader.next();
+                if (cursor == XMLStreamConstants.START_ELEMENT) {
+                    String tagName = reader.getLocalName();
+                    if ("school".equals(tagName)) {
+                        String schoolName = reader.getElementText();
+                        schoolName = TextUtils.getSchoolName(schoolName);
+                        schools.getSchool().add(schoolName);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return schools;
     }
 }

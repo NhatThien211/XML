@@ -9,7 +9,8 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import xsd.thien.Houses;
+import thienVN.JaxB.Houses;
+
 
 /**
  *
@@ -31,4 +32,5 @@ public class XMLUtils implements Serializable {
         }
         return null;
     }
+  
 }

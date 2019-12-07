@@ -32,17 +32,19 @@ public class CrawlServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url = "admin.jsp";
         try {
             String realPath = request.getServletContext().getRealPath("/");
             Crawler craw = new Crawler();
             System.out.println("============== DBS =============================");
             craw.getAllHomeDetail(realPath);
             System.out.println("============== PHONGTRO123 =============================");
-            craw.getPhongTro123Detail(realPath);
+     //       craw.getPhongTro123Detail(realPath);
+            request.setAttribute("CRAWLED", "Cập Nhật Thành Công");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

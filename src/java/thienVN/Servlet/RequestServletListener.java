@@ -5,11 +5,13 @@
  */
 package thienVN.Servlet;
 
+import java.util.ArrayList;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import thienVN.DAO.HomeDAO;
+import thienVN.JaxB.Houses;
+import thienVN.JaxB.UniversityDTO;
 import thienVN.Utils.XMLUtils;
-import xsd.thien.Houses;
 
 /**
  * Web application lifecycle listener.
@@ -31,6 +33,10 @@ public class RequestServletListener implements ServletRequestListener {
             Houses houses = dao.getTop100Houses();
             String str = XMLUtils.marshallToString(houses);
             sre.getServletRequest().setAttribute("INFO", str);
+            ArrayList<UniversityDTO> listUniversity = new ArrayList<>();
+            listUniversity.add(new UniversityDTO(0, "KHÔNG CÓ"));
+            listUniversity.addAll(dao.getListUniversity());
+            sre.getServletRequest().setAttribute("UNIVERSITY", listUniversity);
         } catch (Exception e) {
             e.printStackTrace();
         }

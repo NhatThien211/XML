@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<houses>
+    <house>
+        <image>https://static123.com/uploads/images/thumbs/900x600/fit/2019/10/06/72624051-2164309160536305-2432025106805948416-n_1570337241.jpg</image>
+        <url>https://bds123.vn/ky-tuc-xa-cao-cap-chi-1-trieu-thang-bao-dien-nuoc-wifi-pr125551.html</url>
+        <address> 142 Đường số 172, Phường 4, Quận 8, Hồ Chí Minh</address>
+        <phone>0918333590</phone>
+        <area>150 m</area>
+        <rentPrice>1  triệu/tháng</rentPrice>
+        <latitude>0.0</latitude>
+        <longitude>0.0</longitude>
+        <distance>7.489999771118164</distance>
+        <point>165.47216796875</point>
+        <id>0</id>
+    </house>
+    <house>
+        <image>https://static123.com/uploads/images/thumbs/900x600/fit/2019/12/02/64583693-1921473414624576-4179781538751184896-n_1575259347.jpg</image>
+        <url>https://bds123.vn/ky-tuc-xa-cao-cap-full-noi-that-duong-bau-cat-6-tan-binh-gia-11-trd-pr158879.html</url>
+        <address> Đường Bàu Cát 6, Phường 14, Quận Tân Bình, Hồ Chí Minh</address>
+        <phone>0941538099</phone>
+        <area>25 m</area>
+        <rentPrice>1.1  triệu/tháng</rentPrice>
+        <latitude>0.0</latitude>
+        <longitude>0.0</longitude>
+        <distance>1.850000023841858</distance>
+        <point>107.58011627197266</point>
+        <id>0</id>
+    </house>
+    <house>
+        <image>https://static123.com/uploads/images/thumbs/900x600/fit/2019/10/02/cd17aba9-2364-414d-aff6-3bf3adef6c71_1569999108.jpg</image>
+        <url>https://bds123.vn/phong-homestay-ktx-cao-cap-sinh-vien-van-phong-phong-may-lanh-bao-dien-nuoc-net-pr149260.html</url>
+        <address> Hẻm 304 Đường Tân Kỳ Tân Quý, Phường Sơn Kỳ, Quận Tân Phú, Hồ Chí Minh</address>
+        <phone>0938373798</phone>
+        <area>30 m</area>
+        <rentPrice>1.2  triệu/tháng</rentPrice>
+        <latitude>0.0</latitude>
+        <longitude>0.0</longitude>
+        <distance>1.5499999523162842</distance>
+        <point>107.43537139892578</point>
+        <id>0</id>
+    </house>
+</houses>
