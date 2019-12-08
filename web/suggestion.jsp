@@ -111,7 +111,8 @@
 
             </c:if>
             <c:if test="${empty list}">
-                <p style="color: blue">Xin lỗi chúng tôi không có bất kì thông tin nào liên quan tới nơi bạn muốn tìm.</p>
+                <p class="noitice">Xin lỗi chúng tôi không có bất kì thông tin nào liên quan tới nơi bạn muốn tìm.<br/>
+                Chúng tôi sẽ cập nhật sớm nhất có thể.</p>
             </c:if>
         </div>
 

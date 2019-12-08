@@ -24,7 +24,7 @@
         }
     </script>
     <body>
-        <div class="input_box">
+      <a href="MainServlet?action=logout" class="suggestion_box">LOGOUT</a>
             <div class="center_boxs">
                 <form action="MainServlet" >
                     <input type="hidden" name="action" value="crawl"/>
@@ -39,6 +39,6 @@
                     <p><h4 style="display: none" id="h5">Đang cập nhật dữ liệu, xin hãy kiên nhẫn...</h4></p>
                 </form>
             </div>
-        </div>
+
     </body>
 </html>

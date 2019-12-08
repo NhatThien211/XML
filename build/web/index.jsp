@@ -41,13 +41,8 @@
                             <div class="insideDiv">
                                 <span class="pTag">${dto.address}</span>
                                 <p class="price">
-                                    <c:if test="${dto.rentPrice >= 100}">
-                                        ₫ ${dto.rentPrice}.000/THÁNG 
-                                    </c:if>
-                                    <c:if test="${dto.rentPrice < 100}">
-                                        ₫ ${dto.rentPrice} TRIỆU/THÁNG
-                                    </c:if>    
-                                    <span class="area">(${dto.area}m²)</span>
+                                    ₫ ${dto.rentPrice}
+                                    <span class="area">(${dto.area})</span>
                                 </p>
                                 <p class="phone">SĐT: ${dto.phone}</p>
                             </div>

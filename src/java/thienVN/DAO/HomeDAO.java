@@ -57,10 +57,16 @@ public class HomeDAO implements Serializable {
                 while (rs.next()) {
                     id = rs.getInt("id");
                     image = rs.getString("image");
+                    if (image == null) {
+                        image = "";
+                    }
                     url = rs.getString("url");
                     name = rs.getString("name");
                     address = rs.getString("address");
                     phone = rs.getString("phone");
+                    if (phone == null) {
+                        phone = "";
+                    }
                     area = rs.getString("area");
                     electricPrice = rs.getString("electricPrice");
                     waterPrice = rs.getString("waterPrice");
@@ -171,8 +177,8 @@ public class HomeDAO implements Serializable {
 
         return houses;
     }
-    
-       public void updateSelectedHome(String id) throws ClassNotFoundException, SQLException {
+
+    public void updateSelectedHome(String id) throws ClassNotFoundException, SQLException {
         try {
             con = MyConnection.getConnection();
             if (con != null) {
@@ -186,7 +192,7 @@ public class HomeDAO implements Serializable {
         }
     }
 
-   public boolean updateHouse(House dto) throws ClassNotFoundException, SQLException {
+    public boolean updateHouse(House dto) throws ClassNotFoundException, SQLException {
         boolean check = false;
         try {
             con = MyConnection.getConnection();

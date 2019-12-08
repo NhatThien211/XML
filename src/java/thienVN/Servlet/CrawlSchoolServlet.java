@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
@@ -27,6 +28,9 @@ import thienVN.Crawler.Crawler;
 @WebServlet(name = "CrawlSchoolServlet", urlPatterns = {"/CrawlSchoolServlet"})
 public class CrawlSchoolServlet extends HttpServlet {
 
+    private final String ADMIN = "admin.jsp";
+    private final String LOGIN = "login.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,24 +43,31 @@ public class CrawlSchoolServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-    String url = "admin.jsp";
+        String url = "";
         try {
-            String realPath = request.getServletContext().getRealPath("/");
-            DOMResult rs = Crawler.crawl(realPath + Constraint.BDS_XML, realPath + Constraint.BDS_XSL);
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            StreamResult sr = new StreamResult(new FileOutputStream(realPath + Constraint.BDS_XML_OUTPUT));
-            transformer.transform(new DOMSource(rs.getNode()), sr);
-            //get school from xml file
-            Crawler crawl = new Crawler();
-            System.out.println("===============School================");
-            crawl.getSchool(realPath);
-             System.out.println("===============Finished================");
-            request.setAttribute("CRAWLEDSCHOOL", "Cập Nhật Trường Học Thành Công");
+            HttpSession session = request.getSession();
+            String user = (String) session.getAttribute("USER");
+            if (user != null) {
+                String realPath = request.getServletContext().getRealPath("/");
+                DOMResult rs = Crawler.crawl(realPath + Constraint.BDS_XML, realPath + Constraint.BDS_XSL);
+                TransformerFactory factory = TransformerFactory.newInstance();
+                Transformer transformer = factory.newTransformer();
+                StreamResult sr = new StreamResult(new FileOutputStream(realPath + Constraint.BDS_XML_OUTPUT));
+                transformer.transform(new DOMSource(rs.getNode()), sr);
+                //get school from xml file
+                Crawler crawl = new Crawler();
+                System.out.println("===============School================");
+                crawl.getSchool(realPath);
+                System.out.println("===============Finished================");
+                request.setAttribute("CRAWLEDSCHOOL", "Cập Nhật Trường Học Thành Công");
+                url = ADMIN;
+            } else {
+                url = LOGIN;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

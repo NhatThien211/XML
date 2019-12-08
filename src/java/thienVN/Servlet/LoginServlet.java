@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import thienVN.DAO.AdminDAO;
 
 /**
@@ -41,6 +42,8 @@ private final String FAILED = "login.jsp";
             boolean check = dao.login(username, password);
             if(check){
                 url = SUCCESS;
+                HttpSession session = request.getSession();
+                session.setAttribute("USER", username);
             }else{
                 request.setAttribute("INVALID", "Sai Tên Hoặc Mật Khẩu");
             }

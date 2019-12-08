@@ -5,6 +5,7 @@
  */
 package thienVN.JaxB;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import thienVN.Common.Constraint;
 import thienVN.Utils.TextUtils;
@@ -13,7 +14,7 @@ import thienVN.Utils.TextUtils;
  *
  * @author ASUS
  */
-public class HouseDTO implements Comparable<HouseDTO> {
+public class HouseDTO implements Comparable<HouseDTO>, Serializable {
 
     private int id;
     private String image;

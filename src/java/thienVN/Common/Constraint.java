@@ -28,8 +28,8 @@ public class Constraint {
     public static final String PHONGTRO123_URL = "https://phongtro123.com/";
 
     //page
-    public static final int BDS_PAGE_NUMBER = 1;
-    public static final int PHONGTRO123_PAGE_NUMBER = 1;
+    public static final int BDS_PAGE_NUMBER = 15;
+    public static final int PHONGTRO123_PAGE_NUMBER = 15;
 
     //distance
     public static final float RADIUS = 10;
@@ -44,4 +44,16 @@ public class Constraint {
     public static final int SECOND_PRIORITY = 3;
     public static final int THIRD_PRIORITY = 2;
     
+    //crawl
+    public static final String GETDBSLINK_BODY_START = "<body";
+    public static final String GETDBSLINK_BODY_END = "</body>";
+    public static final String DBS_PAGE_COUNT_START = "<div class=\"leftCol";
+    public static final String DBS_PAGE_COUNT_END = "<aside class=\"rightCol\">";
+    public static final String PAGE_LINK = "?page=";
+    public static final String LIST_LINK_DBS_START = "<div class=\"leftCol";
+    public static final String LIST_LINK_DBS_END = "<aside class=\"rightCol\">";
+    public static final String DBS_HOMEDETAIL_START = "<article class=\"RealEstate_Detail\"";
+    public static final String DBS_HOMEDETAIL_END = "</article>";
+    public static final String PHONGTRO_PAGE_COUNT_START = "<ul class=\"pagination";
+    public static final String PHONGTRO_PAGE_COUNT_END = "</ul>";
 }

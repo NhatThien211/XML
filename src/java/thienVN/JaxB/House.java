@@ -6,7 +6,6 @@
 //
 package thienVN.JaxB;
 
-import xsd.thien.*;
 import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

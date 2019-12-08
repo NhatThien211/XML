@@ -11,6 +11,7 @@ function searchProcess() {
         xmlDOM.async = false;
         xmlDOM.loadXML(regObj);
         var list = document.getElementById("listHouse");
+
         if (xmlDOM.parseError.errorCode != 0) {
             alert("error :" + xmlDoc.parseError.reason);
         } else {
@@ -19,11 +20,14 @@ function searchProcess() {
                 list.removeChild(list.firstChild);
             }
             //find node
-            searchNode2(xmlDOM, myForm.txtName.value);
-
-        }
-        if (!list.hasChildNodes()) {
-            document.getElementById("form").submit();
+            var searchValue = myForm.txtName.value;
+            if (searchValue.trim() !== "") {
+                searchNode2(xmlDOM, myForm.txtName.value);
+                //search server
+                if (!list.hasChildNodes()) {
+                    document.getElementById("form").submit();
+                }
+            }
         }
     }
 }
@@ -33,12 +37,9 @@ function searchNode2(node, strSearch) {
     }
     if (node.tagName == "address") {
         var tmp = node.firstChild.nodeValue;
-        if (tmp.toLowerCase().indexOf(strSearch.toLowerCase(), 0) > -1) {
-            var imageTag = node.previousSibling;
-            while (imageTag.tagName != "image") {
-                var imageTag = imageTag.previousSibling;
-            }
-            var image = imageTag.firstChild.nodeValue;
+        var search = strSearch.trim().toLowerCase();
+        if (tmp.toLowerCase().indexOf(search, 0) > -1) {
+            var image = findNodeValue(node, "image", true);
             var divListHouse = document.getElementById('listHouse');
             // create a tag 
             var url = findNodeValue(node, "url", true);
@@ -129,7 +130,11 @@ function findNodeValue(node, name, isPrevious) {
             var node = node.nextSibling;
         }
     }
-    return node.firstChild.nodeValue;
+    if (node.firstChild !== null) {
+        return node.firstChild.nodeValue;
+    } else {
+        return "";
+    }
 }
 
 

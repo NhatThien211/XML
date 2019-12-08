@@ -37,7 +37,7 @@ public class SearchServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String searchValue = request.getParameter("txtName");
+            String searchValue = request.getParameter("txtName").trim();
             HomeDAO dao = new HomeDAO();
             ArrayList<HouseDTO> listHouse = dao.searchHome(searchValue);
             request.setAttribute("LIST", listHouse);

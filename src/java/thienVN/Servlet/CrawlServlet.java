@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import thienVN.Crawler.Crawler;
 
 /**
@@ -19,7 +20,8 @@ import thienVN.Crawler.Crawler;
  */
 @WebServlet(name = "CrawlServlet", urlPatterns = {"/CrawlServlet"})
 public class CrawlServlet extends HttpServlet {
-
+private final String ADMIN= "admin.jsp";
+private final String LOGIN= "login.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,15 +34,22 @@ public class CrawlServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "admin.jsp";
+        String url = "";
         try {
-            String realPath = request.getServletContext().getRealPath("/");
-            Crawler craw = new Crawler();
-            System.out.println("============== DBS =============================");
-            craw.getAllHomeDetail(realPath);
-            System.out.println("============== PHONGTRO123 =============================");
-     //       craw.getPhongTro123Detail(realPath);
-            request.setAttribute("CRAWLED", "Cập Nhật Thành Công");
+            HttpSession session = request.getSession();
+            String user = (String) session.getAttribute("USER");
+            if (user != null) {
+                String realPath = request.getServletContext().getRealPath("/");
+                Crawler craw = new Crawler();
+                System.out.println("============== DBS =============================");
+                craw.getAllHomeDetail(realPath);
+                System.out.println("============== PHONGTRO123 =============================");
+                craw.getPhongTro123Detail(realPath);
+                request.setAttribute("CRAWLED", "Cập Nhật Thành Công");
+                url = ADMIN;
+            }else{
+                url = LOGIN;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

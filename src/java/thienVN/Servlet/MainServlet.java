@@ -26,6 +26,7 @@ public class MainServlet extends HttpServlet {
     private final String LOGIN = "LoginServlet";
     private final String CRAWL_SCHOOL = "CrawlSchoolServlet";
     private final String PRINT_PDF = "PrintPDFServlet";
+    private final String LOGOUT = "LogoutServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,6 +64,9 @@ public class MainServlet extends HttpServlet {
                     break;
                 case "printPDF":
                     url = PRINT_PDF;
+                    break;
+                case "logout":
+                    url = LOGOUT;
                     break;
             }
         } finally {

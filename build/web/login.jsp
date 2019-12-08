@@ -13,7 +13,8 @@
         <title>LOGIN</title>
     </head>
     <body>
-        <div class="input_box">
+         
+               <a href="index.jsp" class="suggestion_box">HOME</a>
             <div class="center_boxs">
                 <form action="MainServlet" >
                     <h2 style="color: darkgreen">LOGIN</h2>
@@ -24,6 +25,5 @@
                     <button type="submit" class="btn_find">Đăng Nhập</button>
                 </form>
             </div>
-        </div>
     </body>
 </html>

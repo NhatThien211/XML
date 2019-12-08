@@ -34,6 +34,15 @@ import xsd.thien.Schools;
  */
 public class StAXParser {
 
+    private final String HOME_IMAGE_CLASS = "swiper-slide js-pr-img-item";
+    private final String PRICE_RENTING = "Giá cho thuê";
+    private final String PRICE_ELECTRIC = "Giá điện";
+    private final String PRICE_WATER = "Giá nước";
+    private final String AREA = "Diện tích";
+    private final String LATLNG = "map_wrapper -js-section-vitri";
+    private String areaSign = "Diện tích:";
+    private String RENTIGNSIGN = "Giá cho thuê:";
+
     public XMLStreamReader getReader(InputStream is) {
         XMLInputFactory xif = XMLInputFactory.newInstance();
         XMLStreamReader reader = null;
@@ -207,12 +216,6 @@ public class StAXParser {
         }
         return count;
     }
-    private final String HOME_IMAGE_CLASS = "swiper-slide js-pr-img-item";
-    private final String PRICE_RENTING = "Giá cho thuê";
-    private final String PRICE_ELECTRIC = "Giá điện";
-    private final String PRICE_WATER = "Giá nước";
-    private final String AREA = "Diện tích";
-    private final String LATLNG = "map_wrapper -js-section-vitri";
 
     public House getHomeDetail(XMLStreamReader reader, int i) {
         House house = new House();
@@ -484,9 +487,6 @@ public class StAXParser {
         }
         return listLink;
     }
-
-    private String areaSign = "Diện tích:";
-    private String RENTIGNSIGN = "Giá cho thuê:";
 
     public House getPhongTro123Detail(XMLStreamReader reader, int i) {
         House house = new House();

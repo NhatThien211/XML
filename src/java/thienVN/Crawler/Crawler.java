@@ -66,7 +66,7 @@ public class Crawler {
     private static String getBDSLink() {
         StAXParser parser = new StAXParser();
         InputStream stream = parser.getStreamFromUri(Constraint.BDS123_URL);
-        stream = CrawlHelper.preProcessInputStream(stream, "<body", "</body>");
+        stream = CrawlHelper.preProcessInputStream(stream, Constraint.GETDBSLINK_BODY_START, Constraint.GETDBSLINK_BODY_END);
         XMLStreamReader reader = parser.getReader(stream);
         //https://bds123.vn/cho-thue-phong-tro-nha-tro.html
         String link = parser.getBDSLink(reader);
@@ -77,7 +77,7 @@ public class Crawler {
         String url = getBDSLink();
         StAXParser parser = new StAXParser();
         InputStream is = parser.getStreamFromUri(url);
-        is = CrawlHelper.preProcessInputStream(is, "<div class=\"leftCol", "<aside class=\"rightCol\">");
+        is = CrawlHelper.preProcessInputStream(is, Constraint.DBS_PAGE_COUNT_START, Constraint.DBS_PAGE_COUNT_END);
         XMLStreamReader reader = parser.getReader(is);
         int pageCount = parser.getPageCountDBS(reader);
         return pageCount;
@@ -87,14 +87,14 @@ public class Crawler {
         int count = 0;
         StAXParser parser = new StAXParser();
         int i = 0;
-        InputStream is = parser.getStreamFromUri(url + "?page=" + guess);
+        InputStream is = parser.getStreamFromUri(url + Constraint.PAGE_LINK + guess);
         if (is != null) {
             return guess;
         }
         while (true) {
             i++;
             System.out.println(i);
-            is = parser.getStreamFromUri(url + "?page=" + i);
+            is = parser.getStreamFromUri(url + Constraint.PAGE_LINK + i);
             if (is == null) {
                 return count;
             }
@@ -108,10 +108,10 @@ public class Crawler {
         String url = getBDSLink();
         int pageCount = getPageCount(url, Constraint.BDS_PAGE_NUMBER);
         for (int i = 1; i <= pageCount; i++) {
-            String tempUrl = url + "?page=" + i;
+            String tempUrl = url + Constraint.PAGE_LINK + i;
             StAXParser parser = new StAXParser();
             InputStream is = parser.getStreamFromUri(tempUrl);
-            is = CrawlHelper.preProcessInputStream(is, "<div class=\"leftCol", "<aside class=\"rightCol\">");
+            is = CrawlHelper.preProcessInputStream(is, Constraint.LIST_LINK_DBS_START, Constraint.LIST_LINK_DBS_END);
             XMLStreamReader reader = parser.getReader(is);
             listLink.addAll(parser.getDBSHomePage(reader));
         }
@@ -125,7 +125,7 @@ public class Crawler {
         for (int i = 0; i < listLink.size(); i++) {
             String url = listLink.get(i);
             InputStream stream = parser.getStreamFromUri(url);
-            stream = CrawlHelper.preProcessInputStream(stream, "<article class=\"RealEstate_Detail\"", "</article>");
+            stream = CrawlHelper.preProcessInputStream(stream, Constraint.DBS_HOMEDETAIL_START, Constraint.DBS_HOMEDETAIL_END);
             XMLStreamReader reader = parser.getReader(stream);
             House house = parser.getHomeDetail(reader, i);
             if (house != null) {
@@ -155,7 +155,7 @@ public class Crawler {
     private static int phongTro123PageCount() {
         StAXParser parser = new StAXParser();
         InputStream is = parser.getStreamFromUri(Constraint.PHONGTRO123_URL);
-        is = CrawlHelper.preProcessInputStream(is, "<ul class=\"pagination", "</ul>");
+        is = CrawlHelper.preProcessInputStream(is, Constraint.PHONGTRO_PAGE_COUNT_START, Constraint.PHONGTRO_PAGE_COUNT_END);
         XMLStreamReader reader = parser.getReader(is);
         int pageCount = parser.getPageCountPhongTro123(reader);
         return pageCount;
@@ -165,7 +165,7 @@ public class Crawler {
         ArrayList<String> listLink = new ArrayList<>();
         //    int pageCount = phongTro123PageCount();
         for (int i = 1; i <= Constraint.PHONGTRO123_PAGE_NUMBER; i++) {
-            String tempUrl = Constraint.PHONGTRO123_URL + "?page=" + i;
+            String tempUrl = Constraint.PHONGTRO123_URL + Constraint.PAGE_LINK + i;
             StAXParser parser = new StAXParser();
             InputStream is = parser.getStreamFromUriStateMachine(tempUrl);
             XMLStreamReader reader = parser.getReader(is);
